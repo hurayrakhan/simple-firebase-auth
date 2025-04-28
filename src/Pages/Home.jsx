@@ -1,10 +1,10 @@
 import React from 'react';
+import Login from '../components/Login';
 
 const Home = () => {
     return (
-        <div>
-             <p>hello i am home</p>
-             <button>Login with Google</button>
+        <div className='text-center place-items-center mt-36 '>
+             <Login></Login>
         </div>
     );
 };
