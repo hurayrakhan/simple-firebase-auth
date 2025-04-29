@@ -1,5 +1,5 @@
 
-import { GithubAuthProvider, GoogleAuthProvider, signInWithPopup } from 'firebase/auth';
+import { createUserWithEmailAndPassword, GithubAuthProvider, GoogleAuthProvider, signInWithPopup } from 'firebase/auth';
 import React from 'react';
 import { auth } from '../Firebase/firebase.init';
 
@@ -33,6 +33,21 @@ const Login = () => {
 
     }
 
+    const handleEmailPasswordLogin = e => {
+        e.preventDefault();
+        console.log(e.target)
+        const email = e.target.email.value
+        const password = e.target.password.value
+         
+        createUserWithEmailAndPassword(auth, email, password )
+        .then(result => {
+
+        })
+        .catch(error => {
+
+        })
+    }
+
     return (
         <div className='text-center place-items-center mt-36 '>
             <fieldset className="fieldset bg-base-200 border-base-300 rounded-box w-xs border p-4">
@@ -44,7 +59,7 @@ const Login = () => {
                 <label className="label">Password</label>
                 <input type="password" className="input" placeholder="Password" />
 
-                <button className="btn btn-neutral mt-4">Login</button>
+                <button onClick={handleEmailPasswordLogin} className="btn btn-neutral mt-4">Login</button>
                 <button onClick={handleLogin} className="btn btn-primary mt-4">Login with Google</button>
                 <button onClick={handleGithubLogin} className="btn btn-accent mt-4">Login with Github</button>
 
