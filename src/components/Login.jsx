@@ -41,10 +41,10 @@ const Login = () => {
 
         createUserWithEmailAndPassword(auth, email, password)
             .then(result => {
-
+                console.log(result)
             })
             .catch(error => {
-
+                console.log(error)
             })
     }
 
@@ -58,7 +58,7 @@ const Login = () => {
 
                 <label className="label">Password</label>
                 <input type="password" className="input validator" required name='password' placeholder="Password" minLength="8"
-                    pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}"
+                    pattern="(?=.*[A-Z])(?=.*\d)(?=.*[!@#$%^&*()_+{}\[\]:;<>,.?~\\\-]).{8,}"
                     title="Must be more than 8 characters, including number, symbol, uppercase letter" />
                 
 
