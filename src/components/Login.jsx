@@ -1,11 +1,14 @@
 
 import { createUserWithEmailAndPassword, GithubAuthProvider, GoogleAuthProvider, signInWithPopup } from 'firebase/auth';
 import { auth } from '../Firebase/firebase.init';
+import { useState } from 'react';
+import { FaEye, FaEyeSlash } from 'react-icons/fa';
 
 const Login = () => {
 
     const provider = new GoogleAuthProvider();
     const GithubProvider = new GithubAuthProvider();
+    const [showPass, setShowPass] = useState(false)
 
     const handleLogin = () => {
 
@@ -34,10 +37,10 @@ const Login = () => {
 
     const handleEmailPasswordLogin = (e) => {
         e.preventDefault();
-        
+
         const email = e.target.email.value
         const password = e.target.password.value
-        
+
 
         createUserWithEmailAndPassword(auth, email, password)
             .then(result => {
@@ -57,18 +60,26 @@ const Login = () => {
                 <input className="input validator" type="email" name='email' required placeholder="mail@site.com" />
 
                 <label className="label">Password</label>
-                <input type="password" className="input validator" required name='password' placeholder="Password" minLength="8"
-                    pattern="(?=.*[A-Z])(?=.*\d)(?=.*[!@#$%^&*()_+{}\[\]:;<>,.?~\\\-]).{8,}"
-                    title="Must be more than 8 characters, including number, symbol, uppercase letter" />
+                <div className='relative'>
+                    <input type={showPass ? 'text' : 'password'} className="input validator" required name='password' placeholder="Password" minLength="8"
+                        pattern="(?=.*[A-Z])(?=.*\d)(?=.*[!@#$%^&*()_+{}\[\]:;<>,.?~\\\-]).{8,}"
+                        title="Must be more than 8 characters, including number, symbol, uppercase letter" />
+                    <button onClick={() => setShowPass(!showPass)} className='text-xs absolute right-4 top-3.5'>{showPass ? <FaEyeSlash /> : <FaEye />}</button>
+                </div>
                 
+
 
                 <input className='btn btn-neutral mt-5' type="submit" value="submit" />
 
 
+                <button onClick={handleLogin} className="btn btn-primary mt-4  ">Login with Google</button>
+
+                <button onClick={handleGithubLogin} className="btn btn-accent mt-4 ">Login with Github</button>
+
             </form>
-            <button onClick={handleLogin} className="btn btn-primary mt-4">Login with Google</button>
-            <br />
-            <button onClick={handleGithubLogin} className="btn btn-accent mt-4">Login with Github</button>
+
+
+
         </div>
     );
 };
